@@ -1,5 +1,6 @@
-import "dotenv/config";
+import dotenv from "dotenv";
 import z from "zod";
+import path from "path";
 
 // validation
 const envSchema = z.object({
@@ -9,6 +10,7 @@ const envSchema = z.object({
   APP_PROTOCOL: z.string(),
   APP_HOST: z.string(),
   APP_PORT: z.coerce.number().int().default(3333),
+  AI_GEMINI_API_KEY: z.string(),
   /*
   DB_USER: z.string(),
   DB_HOST: z.string(),
@@ -20,6 +22,8 @@ const envSchema = z.object({
   CRYPTO_SECRET: z.string(),
   */
 });
+
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 const _env = envSchema.safeParse(process.env);
 
