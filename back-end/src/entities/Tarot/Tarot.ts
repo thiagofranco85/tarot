@@ -1,11 +1,11 @@
 import { MinorArcana } from "./MinorArcana";
 import { MajorArcana } from "./MajorArcana";
-import { CardDTO } from "../DTO/CardDTO";
+import { TarotCardDTO } from "../DTO/TarotCardDTO";
 
 export class Tarot {
   constructor(
     private _minorArcana?: MinorArcana,
-    private _majorArcana?: MajorArcana
+    private _majorArcana?: MajorArcana,
   ) {
     this._minorArcana = _minorArcana;
     this._majorArcana = _majorArcana;
@@ -19,13 +19,10 @@ export class Tarot {
     return this._majorArcana;
   }
 
-  static getAllCards(): CardDTO[] {
+  static getAllCards(): TarotCardDTO[] {
     const minorArcana = MinorArcana.getAllCards();
     const majorArcana = MajorArcana.getAllCards();
 
     return [...majorArcana, ...minorArcana];
   }
 }
-
-const t = Tarot.getAllCards();
-console.log(t);

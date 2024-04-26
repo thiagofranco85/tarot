@@ -1,4 +1,4 @@
-import { CardDTO } from "../DTO/CardDTO";
+import { CardDTO } from "../DTO/TarotCardDTO";
 
 export interface ICards {
   getAllCards(): CardDTO[];

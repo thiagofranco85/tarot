@@ -1,4 +1,4 @@
-export type CardDTO = {
+export type TarotCardDTO = {
   name: string;
   numberCard: number;
 };

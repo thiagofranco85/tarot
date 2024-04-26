@@ -2,7 +2,7 @@ import { capitalize } from "../../Utils/capitalize";
 import { Rank } from "../Types/Rank";
 import { Suit } from "../Types/Suit";
 import { Card } from "../abstract/Card";
-import { CardDTO } from "../DTO/CardDTO";
+import { TarotCardDTO } from "../DTO/TarotCardDTO";
 
 export class MinorArcana extends Card {
   private _suit: Suit;
@@ -28,10 +28,10 @@ export class MinorArcana extends Card {
     return `${this.rank} of ${this.suit}`;
   }
 
-  static getAllCards(): CardDTO[] {
+  static getAllCards(): TarotCardDTO[] {
     const suits = Object.values(Suit);
     const ranks = Object.values(Rank);
-    const cards: CardDTO[] = [];
+    const cards: TarotCardDTO[] = [];
     let contNumberCard = 1;
     for (const suit of suits) {
       for (const rank of ranks) {

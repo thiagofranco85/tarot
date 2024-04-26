@@ -1,4 +1,4 @@
-import { CardDTO } from "../DTO/CardDTO";
+import { TarotCardDTO } from "../DTO/TarotCardDTO";
 import { Card } from "../abstract/Card";
 import { Trump, ObjTrump } from "./../Types/Trump";
 
@@ -26,9 +26,9 @@ export class MajorArcana extends Card {
     return `${this.numberCard} - ${this.trump}`;
   }
 
-  static getAllCards(): CardDTO[] {
+  static getAllCards(): TarotCardDTO[] {
     const trumps = Object.values(Trump);
-    const cards: CardDTO[] = [];
+    const cards: TarotCardDTO[] = [];
     let contNumberCard = 0;
 
     for (const trump of trumps) {
