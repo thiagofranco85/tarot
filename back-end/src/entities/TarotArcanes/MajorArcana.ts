@@ -1,17 +1,21 @@
 import { TarotCardDTO } from "../DTO/TarotCardDTO";
 import { Card } from "../abstract/Card";
-import { Trump, ObjTrump } from "./../Types/Trump";
+import { ICardName } from "../interfaces/ICardName";
+import { Trump, ObjTrump } from "../types/Trump";
 
-export class MajorArcana extends Card {
+export class MajorArcana extends Card implements ICardName {
   private _trump: string;
   private _numberCard: number;
-  constructor(id: string | null, trump: Trump | string) {
-    super(id);
+  protected _name: string;
+  static _quantidadeDeOlhos: number = 2;
 
+  constructor(trump: Trump | string) {
+    super();
     this._trump =
       typeof trump === "string" ? trump.replace(" ", "") : ObjTrump[trump];
 
     this._numberCard = Object.keys(ObjTrump).indexOf(this._trump);
+    this._name = this.identifyCardName();
   }
 
   get trump(): string {
@@ -22,8 +26,8 @@ export class MajorArcana extends Card {
     return this._numberCard;
   }
 
-  get fullName(): string {
-    return `${this.numberCard} - ${this.trump}`;
+  get name(): string {
+    return this._name;
   }
 
   static getAllCards(): TarotCardDTO[] {
@@ -39,5 +43,9 @@ export class MajorArcana extends Card {
     }
 
     return cards;
+  }
+
+  identifyCardName(): string {
+    return `${this.trump}`;
   }
 }

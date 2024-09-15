@@ -1,17 +1,24 @@
-import { capitalize } from "../../Utils/capitalize";
-import { Rank } from "../Types/Rank";
-import { Suit } from "../Types/Suit";
+import { capitalize } from "../../utils/capitalize";
+import { Rank } from "../types/Rank";
+import { Suit } from "../types/Suit";
 import { Card } from "../abstract/Card";
 import { TarotCardDTO } from "../DTO/TarotCardDTO";
+import { ICardName } from "../interfaces/ICardName";
 
-export class MinorArcana extends Card {
+export class MinorArcana extends Card implements ICardName {
   private _suit: Suit;
   private _rank: Rank;
+  protected _name: string;
 
-  constructor(id: string | null, suit: Suit, rank: Rank) {
-    super(id);
-    this._suit = Suit[suit];
-    this._rank = Rank[rank];
+  constructor(suit: Suit, rank: Rank) {
+    super();
+    this._suit = suit;
+    this._rank = rank;
+    this._name = this.identifyCardName();
+  }
+
+  identifyCardName(): string {
+    return `${this._rank} of ${this._suit}`;
   }
 
   get suit(): string {
@@ -20,12 +27,12 @@ export class MinorArcana extends Card {
   }
 
   get rank(): string {
-    const str = this._rank?.toLocaleLowerCase() ?? "";
+    const str = this._rank.toLocaleLowerCase() ?? "";
     return capitalize(str);
   }
 
-  get fullName(): string {
-    return `${this.rank} of ${this.suit}`;
+  get name(): string {
+    return this._name;
   }
 
   static getAllCards(): TarotCardDTO[] {
