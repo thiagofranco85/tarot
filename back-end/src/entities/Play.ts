@@ -1,24 +1,38 @@
-import { Lennormand } from "./Lennormand";
-import { Tarot } from "./Tarot";
-import { MajorArcana } from "./TarotArcanes/MajorArcana";
-import { MinorArcana } from "./TarotArcanes/MinorArcana";
+import { uuidv7 } from "uuidv7";
 import { ICardName } from "./interfaces/ICardName";
-import { LennormandCards } from "./types/LennormandCards";
-import { Rank } from "./types/Rank";
-import { Suit } from "./types/Suit";
-import { Trump } from "./types/Trump";
-import { v4 as uuidv4 } from "uuid";
+import { Subjects } from "./types/Subjects";
 
 export class Play<T extends ICardName> {
+
   private _id: string | null;
+  private _question: string;
   private _cards: T[];
+  private _subjects: Subjects[];
   private _numberOfCards: number;
   private _limitOfNumberOfCards: number = 3;
 
-  constructor(id: string | null, numberOfCards: number) {
-    this._id = id === null ? uuidv4() : id;
-    this._cards = [];
+
+  constructor(id: string | null, numberOfCards: number, question: string) {
+    this._id = id === null ? uuidv7() : id;
     this._numberOfCards = this.verifyNumberOfCards(numberOfCards);
+    this._question = question;
+    this._cards = [];
+    this._subjects = [];
+  }
+
+  getId(): string | null {
+    return this._id;
+  }
+
+  getCards(): T[] {
+    return this._cards;
+  }
+
+  getSubjects(): Subjects[] {
+    return this._subjects;
+  }
+  getQuestion(): string {
+    return this._question;
   }
 
   private verifyNumberOfCards(numberOfCards: number): number {
@@ -31,11 +45,14 @@ export class Play<T extends ICardName> {
     return numberOfCards;
   }
 
-  getId(): string | null {
-    return this._id;
+  private verifyNumberOfSubjectsAndCards() {
+    console.log(this._subjects.length, this._cards.length);
+    if (this._subjects.length !== this._cards.length) {
+      throw new Error(`Number of subjects and cards must be the same`);
+    }
   }
 
-  addCard(card: T): void {
+  public addCard(subject: Subjects, card: T): void {
     if (this._cards.length > this._numberOfCards - 1) {
       throw new Error(`You can't add more than ${this._numberOfCards} cards`);
     }
@@ -44,32 +61,31 @@ export class Play<T extends ICardName> {
       throw new Error("You can't add the same card twice");
     }
 
+    if (this._subjects.some(s => s === subject)) {
+      throw new Error("You can't add the same subject twice");
+    }
+
+    this._subjects.push(subject);
     this._cards.push(card);
   }
 
-  getCards(): T[] {
-    return this._cards;
+  public buildCompleteQuestion(): string {
+    this.verifyNumberOfSubjectsAndCards();
+    const typeOfCard = this._cards[0].constructor.name;
+    let completeQuestion = `I have asked to ${typeOfCard} about: ${this._question}. It answered me with these cards: `;
+
+    for (let i = 0; i < this._subjects.length; i++) {
+      const separator = i === this._subjects.length - 1 ? "." : ", ";
+      completeQuestion += `${this._subjects[i]}: ${this._cards[i].name}${separator}`;
+    }
+
+    completeQuestion += ` Now you will interpret the cards like you were a professional Fortune Teller 
+    and answer the question totally in Portuguese. The answer must have only the interpretation of the
+     cards, without any other information.`;
+
+    return completeQuestion;
   }
+
 }
 
-const playLennormand = new Play<Lennormand>(null, 3);
 
-playLennormand.addCard(new Lennormand(LennormandCards.Rider));
-playLennormand.addCard(new Lennormand(LennormandCards.Bear));
-playLennormand.addCard(new Lennormand(LennormandCards.Child));
-
-const playMajor = new Play<MajorArcana>(null, 2);
-playMajor.addCard(new MajorArcana(Trump.TheFool));
-playMajor.addCard(new MajorArcana(Trump.TheMagician));
-
-const minor1 = new MinorArcana(Suit.Clubs, Rank.Ace);
-const major = new MajorArcana(Trump.TheFool);
-
-const tarot1 = new Tarot(minor1);
-const tarot2 = new Tarot(major);
-
-const playTarot = new Play<Tarot>(null, 2);
-playTarot.addCard(tarot1);
-playTarot.addCard(tarot2);
-
-console.log(tarot2.name);

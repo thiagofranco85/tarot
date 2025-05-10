@@ -6,7 +6,7 @@ export class IAGemini {
   private _answer: string = "";
   private _contentType: string = "application/json";
   private _AI_GEMINI_API_KEY: string = env.AI_GEMINI_API_KEY!;
-  private _uri: string = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${this._AI_GEMINI_API_KEY}`;
+  private _uri: string = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${this._AI_GEMINI_API_KEY}`;
 
   constructor(question: string) {
     this._question = question;

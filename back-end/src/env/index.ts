@@ -1,15 +1,17 @@
 import dotenv from "dotenv";
-import z from "zod";
 import path from "path";
+import z from "zod";
 
 // validation
 const envSchema = z.object({
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
-  APP_PROTOCOL: z.string(),
-  APP_HOST: z.string(),
+  /*
+  APP_PROTOCOL: z.string().optional(),
+  APP_HOST: z.string().optional(),
   APP_PORT: z.coerce.number().int().default(3333),
+  */
   AI_GEMINI_API_KEY: z.string(),
   /*
   DB_USER: z.string(),

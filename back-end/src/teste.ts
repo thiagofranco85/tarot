@@ -1,12 +1,9 @@
-import { Lennormand } from "./entities/Lennormand";
+import { Tarot } from "./entities/Tarot";
 import { MajorArcana } from "./entities/TarotArcanes/MajorArcana";
 import { MinorArcana } from "./entities/TarotArcanes/MinorArcana";
-import { Tarot } from "./entities/Tarot";
-import { LennormandCards } from "./entities/types/LennormandCards";
 import { Rank } from "./entities/types/Rank";
 import { Suit } from "./entities/types/Suit";
 import { Trump } from "./entities/types/Trump";
-import { IAGemini } from "./libs/IAGemini";
 /*
 const lennormand1 = new Lennormand(null, LennormandCards.Rider);
 const lennormand2 = new Lennormand(null, LennormandCards.Mountain);
