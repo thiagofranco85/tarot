@@ -6,7 +6,7 @@ import { Play } from "../Play";
 import { LennormandCards } from "../types/LennormandCards";
 import { Subjects } from "../types/Subjects";
 
-const cardsRequestValidation = z.object({
+export const cardsRequestValidation = z.object({
     question: z.string(),
     subjects: z.array(z.nativeEnum(Subjects)).min(1).max(3),
     cards: z.array(z.nativeEnum(LennormandCards)).min(1).max(3)
