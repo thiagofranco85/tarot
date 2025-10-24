@@ -1,7 +1,7 @@
 import styles from './HrDivider.module.css';
 
-export function HrDivider(){
+export function HrDivider({ className } : { className?: string }){
     return (
-        <hr className={`${styles.dividerLine} mt-5`} />
+        <hr className={`${styles.dividerLine} ${className}`} />
     )
 }

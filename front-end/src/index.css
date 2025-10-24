@@ -1,48 +1,50 @@
 @import "tailwindcss";
 
-:root {
+@property --border-angle {
+    inherits: false;
+    initial-value: 0deg;
+    syntax: "<angle>";
+}
+
+@theme {
+    /* --color-*: initial; */
     --color-primary: #4b0092;
     --color-secondary: #2b00c7;
-    --color-accent: #c400d6;
-    --color-background-1: #4b0092;
-    --color-background-2: #c400d6;
-    --color-background-3: #001694;
-    --color-text-dark: #ffffff;
-    --color-text-light: #000000;
+    --color-third: #c400d6;
+    --color-background-1: var(--color-primary);
+    --color-background-2: var(--color-secondary);
+    --color-background-3: var(--color-third);
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-hover-primary: #FFFFc5;
 
-    --font-family: 'Josefin Sans', serif;
+    --font-josefin: 'Josefin Sans', serif;
+    --font-cinzel: 'Cinzel Decorative', serif;
+
+    --shadow-shape: 0px 8px 8px rgba(0, 0, 0, 0.1), 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 2px 2px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.1), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.03), inset 0px 1px 0px rgba(255, 255, 255, 0.03);
+    --shadow-shape-content: 0px 0px 0px 1px rgba(0, 0, 0, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.02), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.02);
+
+    --animate-border: border 2s linear infinite;
+
+    @keyframes border {
+
+        to {
+            --border-angle: 360deg;
+        }
+    }
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: var(--font-josefin);
     font-weight: 300;
-    color: var(--color-text-dark);
-    background: linear-gradient(132deg, var(--color-background-1), var(--color-background-2), var(--color-background-3));
+    color: var(--color-text-white);
+    background: linear-gradient(132deg, var(--color-background-1), var(--color-background-3), var(--color-background-2));
     background-size: 400% 400%;
     height: 100vh;
     animation: Gradient 15s ease infinite;
 }
 
-h1,
-h2 {
-    font-family: 'Cinzel Decorative', serif;
-}
 
-
-/*
-.background {
-    background: linear-gradient(132deg, #FC415A, #591BC5, #212335);
-    background-size: 400% 400%;
-    animation: Gradient 15s ease infinite;
-    position: absolute;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    padding: 0;
-    margin: 0px;
-    z-index: -1;
-}
-    */
 
 .cube {
     position: absolute;
