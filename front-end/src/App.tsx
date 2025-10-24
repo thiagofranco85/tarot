@@ -1,19 +1,23 @@
-import { DeckMenu } from "./layout-components/DeckMenu/DeckMenu"
-import { Footer } from "./layout-components/Footer/Footer"
-import { Header } from "./layout-components/Header/Header"
-
+ import { BrowserRouter, Route, Routes } from "react-router";
+import { LayoutMain } from './layout-components/LayoutMain';
+import { ComoFunciona } from "./pages/external/ComoFunciona";
+import { Home } from './pages/external/Home';
+import { LenormandForm } from "./pages/external/LenormandForm";
+import { TarotForm } from "./pages/external/TarotForm";
   
 function App() { 
 
   return (
-    <div className="w-full mx-auto md:w-192 min-w-80">  
-      <Header />
-      
-      <DeckMenu />     
-
-      <Footer />
-
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<LayoutMain />}>
+          <Route path="/" element={<Home />} />
+          <Route path="como-funciona" element={<ComoFunciona />} />
+          <Route path="lenormand" element={<LenormandForm />} />
+          <Route path="tarot" element={<TarotForm />} />
+        </Route>        
+      </Routes>
+    </BrowserRouter>
   )
 }
 

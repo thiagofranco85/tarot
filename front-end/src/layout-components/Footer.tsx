@@ -1,4 +1,4 @@
-import { HrDivider } from "../HrDivider/HrDivider";
+import { HrDivider } from "./HrDivider";
 
 export function Footer(){
     return (

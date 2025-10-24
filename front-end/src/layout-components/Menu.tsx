@@ -1,6 +1,7 @@
 import { Menu as MenuIcon } from 'lucide-react';
 import { useState } from 'react';
-import { Text } from "../../components/Text/Text";
+import { NavLink } from 'react-router';
+import { Text } from "../components/text/Text";
 
 export function Menu(){
 
@@ -20,9 +21,9 @@ export function Menu(){
             justify-start bg-background-1/80
             ${isMenuOpen ? 'opacity-100 visible translate-y-0 z-1' : 'opacity-0 invisible -translate-y-2'}
             md:flex-row md:justify-center md:visible md:opacity-100 md:gap-10 md:py-4 md:relative md:bg-transparent`}>
-                <li><Text variant={"title-xs"}>Início</Text></li>
-                <li><Text variant={"title-xs"}>Como Funciona</Text></li>
-                <li><Text variant={"title-xs"}>Página do Dev.</Text></li>
+                <li><Text variant={"title-xs"}><NavLink to="/">Início</NavLink></Text></li>
+                <li><Text variant={"title-xs"}><NavLink to="/como-funciona">Como Funciona</NavLink></Text></li>
+                <li><Text variant={"title-xs"}><NavLink to="/pagina-do-dev">Página do Dev.</NavLink></Text></li>
             </menu>    
             
             {isMenuOpen && (
