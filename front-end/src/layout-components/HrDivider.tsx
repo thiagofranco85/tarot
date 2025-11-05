@@ -1,6 +1,7 @@
-export function HrDivider({ className } : { className?: string }){
-    return (
-        <hr className={`
+export function HrDivider({ className }: { className?: string }) {
+  return (
+    <hr
+      className={`
             border-none 
             h-px 
             w-full 
@@ -9,6 +10,7 @@ export function HrDivider({ className } : { className?: string }){
             via-white/75 
             to-transparent
             ${className}
-        `} />
-    )
+        `}
+    />
+  );
 }

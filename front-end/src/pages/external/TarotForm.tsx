@@ -1,5 +1,3 @@
-export function TarotForm(){
-    return (
-        <div>Tarot Form</div>
-    )   
+export function TarotForm() {
+  return <div>Tarot Form</div>;
 }
