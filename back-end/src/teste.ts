@@ -1,9 +1,5 @@
-import { Tarot } from "./entities/Tarot";
-import { MajorArcana } from "./entities/TarotArcanes/MajorArcana";
-import { MinorArcana } from "./entities/TarotArcanes/MinorArcana";
-import { Rank } from "./entities/types/Rank";
-import { Suit } from "./entities/types/Suit";
-import { Trump } from "./entities/types/Trump";
+import { Lennormand } from './entities/Lennormand';
+import { LenormandCard } from './entities/types/enums/LenormandCard';
 /*
 const lennormand1 = new Lennormand(null, LennormandCards.Rider);
 const lennormand2 = new Lennormand(null, LennormandCards.Mountain);
@@ -40,5 +36,14 @@ console.log(pergunta);
 })();
 */
 
-const tarot1 = new Tarot(new MajorArcana(Trump.Death));
-const tarot2 = new Tarot(new MinorArcana(Suit.Spades, Rank.Nine));
+
+const rider = new Lennormand({ card: LenormandCard['Rider'] });
+console.log(rider)
+
+enum Color {
+    Red,
+    Green,
+    Blue
+}
+var col = Color[Color.Red];
+console.log(col)

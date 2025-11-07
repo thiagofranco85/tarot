@@ -3,13 +3,13 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { Lennormand } from "../Lennormand";
 import { Play } from "../Play";
-import { LennormandCards } from "../types/LennormandCards";
+import { LenormandCard } from "../types/enums/LenormandCard";
 import { Subjects } from "../types/Subjects";
 
 export const cardsRequestValidation = z.object({
     question: z.string(),
     subjects: z.array(z.nativeEnum(Subjects)).min(1).max(3),
-    cards: z.array(z.nativeEnum(LennormandCards)).min(1).max(3)
+    cards: z.array(z.nativeEnum(LenormandCard)).min(1).max(3)
 }).refine((data) => data.subjects.length === data.cards.length, {
     message: "O número de assuntos deve ser igual ao número de cartas",
     path: ["subjects", "cards"]
@@ -35,10 +35,10 @@ export async function playLennormand(request: FastifyRequest, reply: FastifyRepl
 
     const { question, subjects, cards } = validatedData;
 
-    const play = new Play<Lennormand>(null, cards.length, question);
+    const play = new Play<Lennormand>({ numberOfCards: cards.length, question });
 
     for (let i = 0; i < cards.length; i++) {
-        const card = new Lennormand(cards[i]);
+        const card = new Lennormand({ card: cards[i] });
         const subject = subjects[i];
 
         play.addCard(subject, card);

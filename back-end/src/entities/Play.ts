@@ -1,8 +1,7 @@
 import { uuidv7 } from "uuidv7";
-import { ICardName } from "./interfaces/ICardName";
 import { Subjects } from "./types/Subjects";
 
-export class Play<T extends ICardName> {
+export class Play<T extends { name: string }> {
 
   private _id: string | null;
   private _question: string;
@@ -12,8 +11,8 @@ export class Play<T extends ICardName> {
   private _limitOfNumberOfCards: number = 3;
 
 
-  constructor(id: string | null, numberOfCards: number, question: string) {
-    this._id = id === null ? uuidv7() : id;
+  constructor({id, numberOfCards, question}: {id?: string, numberOfCards: number, question: string}) {
+    this._id = id  ? id : uuidv7();
     this._numberOfCards = this.verifyNumberOfCards(numberOfCards);
     this._question = question;
     this._cards = [];
