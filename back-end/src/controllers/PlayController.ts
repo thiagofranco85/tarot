@@ -1,10 +1,10 @@
 import { IAGemini } from "@/libs/IAGemini";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
-import { Lennormand } from "../Lennormand";
-import { Play } from "../Play";
-import { LenormandCard } from "../types/enums/LenormandCard";
-import { Subjects } from "../types/Subjects";
+import { Lenormand } from "../entities/Lenormand";
+import { Play } from "../entities/Play";
+import { LenormandCard } from "../entities/types/enums/LenormandCard";
+import { Subjects } from "../entities/types/enums/Subjects";
 
 export const cardsRequestValidation = z.object({
     question: z.string(),
@@ -35,10 +35,10 @@ export async function playLennormand(request: FastifyRequest, reply: FastifyRepl
 
     const { question, subjects, cards } = validatedData;
 
-    const play = new Play<Lennormand>({ numberOfCards: cards.length, question });
+    const play = new Play<Lenormand>({ numberOfCards: cards.length, question });
 
     for (let i = 0; i < cards.length; i++) {
-        const card = new Lennormand({ card: cards[i] });
+        const card = new Lenormand({ card: cards[i] });
         const subject = subjects[i];
 
         play.addCard(subject, card);

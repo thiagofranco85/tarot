@@ -1,4 +1,5 @@
-import { cardsRequestValidation, playLennormand } from "@/entities/controllers/PlayController";
+import { cardsRequestValidation, playLennormand } from "@/controllers/PlayController";
+import { TarotCards } from "@/entities/types/enums/TarotCards";
 import { FastifyInstance } from "fastify";
 import z from "zod";
 
@@ -22,6 +23,36 @@ export async function routes(app: FastifyInstance) {
   }, async (request, reply) => {
     return playLennormand(request, reply);
   });
+
+  // ...existing code...
+// ...existing code...
+// ...existing code...
+app.post("/play/tarot", async (request, reply) => {
+
+  const body = request.body
+
+  const schema = z.object({
+    cards: z.array(z.nativeEnum(TarotCards)).min(1).max(3),
+  })
+
+  try {
+    const { cards } = schema.parse(body);
+    
+    // Here you can implement the logic to handle the Tarot play with the provided cards
+    console.log("Received Tarot cards:", cards);
+    reply.send({ data: "Tarot cards processed successfully." });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return reply.status(400).send({ error: error.format() });
+    }
+    console.error("Error processing Tarot cards:", error);
+    reply.status(500).send({ error: "Internal server error" });
+  }
+
+});
+// ...existing code...
+// ...existing code...
+// ...existing code...
   /*
     app.post("/play/tarot", async (request, reply) => {
       

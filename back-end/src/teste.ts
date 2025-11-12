@@ -1,5 +1,7 @@
-import { Lennormand } from './entities/Lennormand';
+import { Lenormand } from './entities/Lenormand';
+import { Tarot } from './entities/Tarot';
 import { LenormandCard } from './entities/types/enums/LenormandCard';
+import { TarotCards } from './entities/types/enums/TarotCards';
 /*
 const lennormand1 = new Lennormand(null, LennormandCards.Rider);
 const lennormand2 = new Lennormand(null, LennormandCards.Mountain);
@@ -37,13 +39,14 @@ console.log(pergunta);
 */
 
 
-const rider = new Lennormand({ card: LenormandCard['Rider'] });
+const rider = new Lenormand({ card: LenormandCard['Rider'] });
 console.log(rider)
 
-enum Color {
-    Red,
-    Green,
-    Blue
+try {
+  console.log(TarotCards.AceOfWands)
+  const aceOfWands = new Tarot({ card: TarotCards.AceOfWands });
+  console.log(aceOfWands);  
+} catch (error) {
+  throw new Error("Error creating Tarot card: " + error);
 }
-var col = Color[Color.Red];
-console.log(col)
+

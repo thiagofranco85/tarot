@@ -1,35 +1,36 @@
 import { uuidv7 } from "uuidv7";
-import { Subjects } from "./types/Subjects";
+import { ICard } from "./interfaces/ICard";
+import { Subjects } from "./types/enums/Subjects";
 
-export class Play<T extends { name: string }> {
+export class Play<T extends ICard> {
 
-  private _id: string | null;
+  private _id: string;
   private _question: string;
   private _cards: T[];
   private _subjects: Subjects[];
   private _numberOfCards: number;
-  private _limitOfNumberOfCards: number = 3;
-
+  private readonly _limitOfNumberOfCards: number = 3;
 
   constructor({id, numberOfCards, question}: {id?: string, numberOfCards: number, question: string}) {
-    this._id = id  ? id : uuidv7();
+    this._id = id ?? uuidv7();
     this._numberOfCards = this.verifyNumberOfCards(numberOfCards);
     this._question = question;
     this._cards = [];
     this._subjects = [];
   }
 
-  getId(): string | null {
+  getId(): string {
     return this._id;
   }
 
-  getCards(): T[] {
-    return this._cards;
+  getCards(): readonly T[] {
+    return [...this._cards]; // Retorna cópia para imutabilidade
   }
 
-  getSubjects(): Subjects[] {
-    return this._subjects;
+  getSubjects(): readonly Subjects[] {
+    return [...this._subjects]; // Retorna cópia para imutabilidade
   }
+
   getQuestion(): string {
     return this._question;
   }
@@ -44,15 +45,14 @@ export class Play<T extends { name: string }> {
     return numberOfCards;
   }
 
-  private verifyNumberOfSubjectsAndCards() {
-    console.log(this._subjects.length, this._cards.length);
+  private verifyNumberOfSubjectsAndCards(): void {
     if (this._subjects.length !== this._cards.length) {
       throw new Error(`Number of subjects and cards must be the same`);
     }
   }
 
   public addCard(subject: Subjects, card: T): void {
-    if (this._cards.length > this._numberOfCards - 1) {
+    if (this._cards.length >= this._numberOfCards) {
       throw new Error(`You can't add more than ${this._numberOfCards} cards`);
     }
 
@@ -60,7 +60,7 @@ export class Play<T extends { name: string }> {
       throw new Error("You can't add the same card twice");
     }
 
-    if (this._subjects.some(s => s === subject)) {
+    if (this._subjects.includes(subject)) {
       throw new Error("You can't add the same subject twice");
     }
 
@@ -70,6 +70,11 @@ export class Play<T extends { name: string }> {
 
   public buildCompleteQuestion(): string {
     this.verifyNumberOfSubjectsAndCards();
+    
+    if (this._cards.length === 0) {
+      throw new Error("No cards added to the play");
+    }
+
     const typeOfCard = this._cards[0].constructor.name;
     let completeQuestion = `I have asked to ${typeOfCard} about: ${this._question}. It answered me with these cards: `;
 
@@ -80,11 +85,8 @@ export class Play<T extends { name: string }> {
 
     completeQuestion += ` Now you will interpret the cards like you were a professional Fortune Teller 
     and answer the question totally in Portuguese. The answer must have only the interpretation of the
-     cards, without any other information.`;
+     cards, without any other information.`; 
 
     return completeQuestion;
   }
-
 }
-
-
