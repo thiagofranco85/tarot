@@ -37,10 +37,4 @@ export class IAGemini {
     return this._answer;
   }
 }
-/*
-(async function () {
-  const r = new IAGemini("Qual é o sentido da vida?");
-  const resp = await r.sendRequest();
-  console.log(resp);
-})();
-*/
+ 

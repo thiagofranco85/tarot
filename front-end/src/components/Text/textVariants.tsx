@@ -1,9 +1,8 @@
 import { cva } from "class-variance-authority";
 
-export const textVariants = cva("text-white", {
+export const textVariants = cva("text-white", { // Remove text-white daqui
   variants: {
     variant: {
-      // Base variants (sem font-weight específico)
       "body-xs": "font-josefin text-sm leading-6",
       "body-sm": "font-josefin text-xl leading-7",
       "body-md": "font-josefin text-2xl leading-8",
@@ -17,7 +16,7 @@ export const textVariants = cva("text-white", {
       medium: "font-medium",
       semibold: "font-semibold",
       bold: "font-bold",
-    },
+    }
   },
   defaultVariants: {
     variant: "body-sm",

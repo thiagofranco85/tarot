@@ -1,9 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { LayoutMain } from "./layout-components/LayoutMain";
 import { ComoFunciona } from "./pages/external/ComoFunciona";
+import { DeckForm } from "./pages/external/DeckForm";
 import { Home } from "./pages/external/Home";
-import { LenormandForm } from "./pages/external/LenormandForm";
-import { TarotForm } from "./pages/external/TarotForm";
 
 function App() {
   return (
@@ -12,8 +11,8 @@ function App() {
         <Route element={<LayoutMain />}>
           <Route path="/" element={<Home />} />
           <Route path="como-funciona" element={<ComoFunciona />} />
-          <Route path="lenormand" element={<LenormandForm />} />
-          <Route path="tarot" element={<TarotForm />} />
+          <Route path="lenormand" element={<DeckForm deckType="lenormand" />} />
+          <Route path="tarot" element={<DeckForm deckType="tarot" />} />
         </Route>
       </Routes>
     </BrowserRouter>

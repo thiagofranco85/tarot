@@ -76,16 +76,30 @@ export class Play<T extends ICard> {
     }
 
     const typeOfCard = this._cards[0].constructor.name;
-    let completeQuestion = `I have asked to ${typeOfCard} about: ${this._question}. It answered me with these cards: `;
+    let completeQuestion = `Perguntei ao ${typeOfCard} sobre: ${this._question}. A resposta foi: `;
 
     for (let i = 0; i < this._subjects.length; i++) {
       const separator = i === this._subjects.length - 1 ? "." : ", ";
       completeQuestion += `${this._subjects[i]}: ${this._cards[i].name}${separator}`;
     }
 
-    completeQuestion += ` Now you will interpret the cards like you were a professional Fortune Teller 
-    and answer the question totally in Portuguese. The answer must have only the interpretation of the
-     cards, without any other information.`; 
+    completeQuestion += ` Aja como um tarólogo experiente e intuitivo, com profundo conhecimento 
+    do simbolismo das cartas de tarot. Seu objetivo é fornecer uma interpretação clara, 
+    perspicaz e útil, que vá além do significado literal.
+
+    A sua resposta vai alimentar uma API que retornará a resposta para o usuário final, portante, se o 
+    usuário não falou seu gênero, utilize termos neutros. 
+    
+    O texto da sua resposta deve ser em português e dividido em parágrafos.
+
+    O 1º parágrafo: Visão Geral: Um parágrafo conciso que resume a mensagem central da jogada.
+
+    Os parágrafos seguintes: Interpretação das Cartas: Um parágrafo para cada carta, detalhando seu significado
+    individual e como ela se relaciona com o assunto à qual foi designado e a pergunta do consulente.
+
+    O último parágrafo: Síntese e Conselho: Um parágrafo final que integra as interpretações das cartas
+    em uma mensagem coesa, oferecendo conselhos práticos ou reflexões para o consulente.
+    `; 
 
     return completeQuestion;
   }

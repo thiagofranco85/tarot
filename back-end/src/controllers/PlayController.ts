@@ -1,25 +1,19 @@
+import { ICard } from "@/entities/interfaces/ICard";
 import { IAGemini } from "@/libs/IAGemini";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
-import { Lenormand } from "../entities/Lenormand";
 import { Play } from "../entities/Play";
-import { LenormandCard } from "../entities/types/enums/LenormandCard";
-import { Subjects } from "../entities/types/enums/Subjects";
-
-export const cardsRequestValidation = z.object({
-    question: z.string(),
-    subjects: z.array(z.nativeEnum(Subjects)).min(1).max(3),
-    cards: z.array(z.nativeEnum(LenormandCard)).min(1).max(3)
-}).refine((data) => data.subjects.length === data.cards.length, {
-    message: "O número de assuntos deve ser igual ao número de cartas",
-    path: ["subjects", "cards"]
-});
 
 //type cardsRequestTypes = z.infer<typeof cardsRequestValidation>;
 
-export async function playLennormand(request: FastifyRequest, reply: FastifyReply) {
+export async function playController<T extends ICard>(
+    request: FastifyRequest, 
+    reply: FastifyReply,
+    validationSchema: z.ZodSchema,
+    CardClass: new (card: any) => T
+) {
 
-    const requestValidated = cardsRequestValidation.safeParse(request.body);
+    const requestValidated = validationSchema.safeParse(request.body);
 
     if (requestValidated.success === false) {
         return reply.status(400).send({
@@ -35,10 +29,10 @@ export async function playLennormand(request: FastifyRequest, reply: FastifyRepl
 
     const { question, subjects, cards } = validatedData;
 
-    const play = new Play<Lenormand>({ numberOfCards: cards.length, question });
+    const play = new Play<T>({ numberOfCards: cards.length, question });
 
     for (let i = 0; i < cards.length; i++) {
-        const card = new Lenormand({ card: cards[i] });
+        const card = new CardClass({ card: cards[i] });
         const subject = subjects[i];
 
         play.addCard(subject, card);

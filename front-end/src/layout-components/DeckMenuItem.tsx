@@ -33,10 +33,9 @@ export function DeckMenuItem({
         as="h3"
         variant={"title-xs"}
         className="
-                px-5 mt-4 rounded-full
+                px-5 py-1.5 mt-4 rounded-full
                 group-hover:text-hover-primary 
                 transition-transform duration-200
-
                 border-1
                 border-transparent 
                 animate-border 
@@ -48,7 +47,6 @@ export function DeckMenuItem({
           {text}
         </NavLink>
       </Text>
-      {/* <HrDivider/> */}
     </div>
   );
 }
