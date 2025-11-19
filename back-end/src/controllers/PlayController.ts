@@ -40,9 +40,18 @@ export async function playController<T extends ICard>(
 
     const completeQuestion = play.buildCompleteQuestion();
 
-    const iaGemini = new IAGemini(completeQuestion);
-    const iaAnswer = await iaGemini.sendRequest();
+    let httpCode = 200;
+    let resp: {};
+    try {
+        const iaGemini = new IAGemini(completeQuestion);
+        const iaAnswer = await iaGemini.sendRequest();
+        resp = { data: iaAnswer }
+     } catch (error) {
+        resp = { error: error };
+        console.log("Erro ao processar a solicitação:", error);
+        httpCode = 500;
+    }    
 
-    return reply.send({ data: iaAnswer });
+    return reply.status(httpCode).send(resp);
 
 }

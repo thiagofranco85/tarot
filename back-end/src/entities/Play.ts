@@ -85,12 +85,16 @@ export class Play<T extends ICard> {
 
     completeQuestion += ` Aja como um tarólogo experiente e intuitivo, com profundo conhecimento 
     do simbolismo das cartas de tarot. Seu objetivo é fornecer uma interpretação clara, 
-    perspicaz e útil, que vá além do significado literal.
+    perspicaz e útil, que vá além do significado literal. A interpretação não deve iludir o consulente, 
+    com possibilidades irreais ou falsas esperanças. A interpretação deve ser sincera e prática, 
+    ajudando o consulente a compreender melhor sua situação e a tomar decisões informadas.
 
     A sua resposta vai alimentar uma API que retornará a resposta para o usuário final, portante, se o 
     usuário não falou seu gênero, utilize termos neutros. 
     
-    O texto da sua resposta deve ser em português e dividido em parágrafos.
+    O texto da sua resposta deve ser em Português do Brasil e dividido em parágrafos.
+
+    Os parágrafos devem vir precedidos de título com a nota conforme a seguir: **Título do Parágrafo**.
 
     O 1º parágrafo: Visão Geral: Um parágrafo conciso que resume a mensagem central da jogada.
 

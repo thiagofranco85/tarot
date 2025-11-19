@@ -32,6 +32,8 @@ export class IAGemini {
       headers: { "Content-Type": this._contentType },
     });
 
+    
+
     this._answer = response.data.candidates[0].content.parts[0].text;
 
     return this._answer;

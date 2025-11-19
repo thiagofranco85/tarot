@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { Button } from "../../components/button/Button";
 import { Error } from "../../components/error/Error";
+import { LoadingGif } from "../../components/loading-gif/loadingGif";
 import { Select } from "../../components/select/Select";
 import { Text } from "../../components/text/Text";
 import { TextArea } from "../../components/textarea/TextArea";
@@ -26,24 +28,38 @@ export function DeckForm({ deckType }: { deckType: DeckType }) {
   const [selectedSubjectArray, setSelectedSubjectArray] = useState<string[]>([]);
   const [selectedCards, setSelectedCards] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
-  const [responseApi, setResponseApi] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register, handleSubmit, formState } = useForm<SendFormData>();
 
   const { errors } = formState;
+  const navigate = useNavigate();
+
 
   async function sendForm(formData: SendFormData) {
     console.log(formData);
 
-    const paramsObject = {
-      question: formData.question,
-      subjects: selectedSubjectArray,
-      cards: Object.values(selectedCards)
-    };
+    setIsSubmitting(true);
 
-    const response = deckType === "lenormand" ? await playLenormand(paramsObject) : await playTarot(paramsObject);
+    try {
+      const paramsObject = {
+        question: formData.question,
+        subjects: selectedSubjectArray,
+        cards: Object.values(selectedCards)
+      };
 
-    setResponseApi(response.data);
+      const response = deckType === "lenormand" ? await playLenormand(paramsObject) : await playTarot(paramsObject);
+
+      //setResponseApi(response.data);
+      navigate('/answer', { state: { response: response.data, origin: deckType } });
+
+    } catch (error) {
+      console.error('Erro ao enviar o formulário:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+
+
   }
 
   function handleSelectedSubject(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -158,11 +174,13 @@ export function DeckForm({ deckType }: { deckType: DeckType }) {
           </React.Fragment>
         ))}
 
-        <Button type="submit" size={"lg"} className="w-50 m-auto block">
-          Enviar
+        <Button type="submit" size={"lg"} className="w-50 m-auto block" disabled={isSubmitting}>
+          {isSubmitting ? 'Enviando...' : 'Enviar'}
         </Button>
 
-        {responseApi && <Text as="p" variant="body-md" className="text-white py-5">{responseApi}</Text>}
+        {isSubmitting && <LoadingGif />}
+
+
 
 
         {/*}

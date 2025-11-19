@@ -11,20 +11,20 @@ export function LenormandMenu() {
     <div>
       <PageTitle>Lenormand</PageTitle>
       <Text as="h3" variant="title-sm" className="text-center">
-        1. Escolha o tipo de jogada
+        1. Escolha o tipo de tiragem
       </Text>
 
       <DeckMenu>
         <DeckMenuItem
           text="Carta Única"
-          description="Jogada com apenas uma carta única."
+          description="Tiragem com apenas uma carta única."
           href="/lenormand/carta-unica"
         >
           <TarotOneCard className="w-20 h-20 fill-white" />
         </DeckMenuItem>
         <DeckMenuItem
           text="Duas Cartas"
-          description="Jogada com apenas uma carta resposta e uma carta de complemento."
+          description="Tiragem com apenas uma carta resposta e uma carta de complemento."
           href="/lenormand/duas-cartas"
         >
           <TarotTwoCards className="w-20 h-20 fill-white" />
@@ -32,7 +32,7 @@ export function LenormandMenu() {
 
         <DeckMenuItem
           text="Três Cartas"
-          description="Jogada com apenas três cartas."
+          description="Tiragem com apenas três cartas."
           href="/lenormand/tres-cartas"
         >
           <TarotThreeCards className="max-w-30 h-20 fill-white" />

@@ -9,9 +9,11 @@ interface PlayLenormandProps {
 
 type PlayTarotProps = PlayLenormandProps;
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 export async function getFormatedSubjects() {
-    const res = await fetch('http://localhost:3000/api/formated-subjects', {
+    const res = await fetch(`${API_URL}/formated-subjects`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     });
@@ -27,7 +29,7 @@ export async function getFormatedSubjects() {
 
 
 export async function getDeckCards(deckType: DeckType) {
-    const res = await fetch(`http://localhost:3000/api/${deckType}-cards`, {
+    const res = await fetch(`${API_URL}/${deckType}-cards`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     });
@@ -42,7 +44,7 @@ export async function getDeckCards(deckType: DeckType) {
 
 export async function playLenormand({ question, subjects, cards }: PlayLenormandProps) {
 
-    const res = await fetch('http://localhost:3000/api/play/lenormand', {
+    const res = await fetch(`${API_URL}/play/lenormand`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -62,7 +64,7 @@ export async function playLenormand({ question, subjects, cards }: PlayLenormand
 
 export async function playTarot({ question, subjects, cards }: PlayTarotProps) {
 
-    const res = await fetch('http://localhost:3000/api/play/tarot', {
+    const res = await fetch(`${API_URL}/play/tarot`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
