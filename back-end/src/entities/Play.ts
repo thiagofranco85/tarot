@@ -83,26 +83,36 @@ export class Play<T extends ICard> {
       completeQuestion += `${this._subjects[i]}: ${this._cards[i].name}${separator}`;
     }
 
-    completeQuestion += ` Aja como um tarólogo experiente e intuitivo, com profundo conhecimento 
+    completeQuestion += `Aja como um tarólogo experiente e intuitivo, com profundo conhecimento 
     do simbolismo das cartas de tarot. Seu objetivo é fornecer uma interpretação clara, 
     perspicaz e útil, que vá além do significado literal. A interpretação não deve iludir o consulente, 
     com possibilidades irreais ou falsas esperanças. A interpretação deve ser sincera e prática, 
-    ajudando o consulente a compreender melhor sua situação e a tomar decisões informadas.
-
-    A sua resposta vai alimentar uma API que retornará a resposta para o usuário final, portante, se o 
-    usuário não falou seu gênero, utilize termos neutros. 
+    ajudando o consulente a compreender melhor sua situação e a tomar decisões informadas.      
     
-    O texto da sua resposta deve ser em Português do Brasil e dividido em parágrafos.
+    O texto da sua resposta deve ser em Português do Brasil, utilizando linguagem cotidiana porém respeitosa, e dividido em parágrafos.
 
-    Os parágrafos devem vir precedidos de título com a nota conforme a seguir: **Título do Parágrafo**.
+    Os parágrafos devem vir precedidos de título, com a notação conforme a seguir: **[Titulo]**.
 
-    O 1º parágrafo: Visão Geral: Um parágrafo conciso que resume a mensagem central da jogada.
+    O 1º parágrafo:     
+    **Visão Geral**: Um parágrafo conciso que resume a mensagem central da jogada.
 
-    Os parágrafos seguintes: Interpretação das Cartas: Um parágrafo para cada carta, detalhando seu significado
-    individual e como ela se relaciona com o assunto à qual foi designado e a pergunta do consulente.
+    Os parágrafos seguintes: 
+    **[Posição da Carta] - [Carta]**: Um parágrafo para cada carta, detalhando seu significado
+    individual e como ela se relaciona com a posição que ocupa da jogada, o assunto à qual foi designado e a pergunta do consulente.
 
-    O último parágrafo: Síntese e Conselho: Um parágrafo final que integra as interpretações das cartas
-    em uma mensagem coesa, oferecendo conselhos práticos ou reflexões para o consulente.
+    O último parágrafo: 
+    **Síntese e Conselho**: Um parágrafo final que integra as interpretações das cartas em uma mensagem coesa, oferecendo conselhos 
+    práticos ou reflexões para o consulente.
+
+    REGRAS:
+        - Se o usuário não mencionar o seu gênero, utilize termos neutros.
+        - A notação **...** é obrigatória para todos os títulos dos parágrafos e não deve aparecer em nenhum outro lugar.
+        - Não use frases genéricas como "pode significar". Seja assertivo sobre a energia da carta.
+        - Conecte estritamente o significado da carta com a "Posição" em que ela caiu.
+        - Evite repetir o significado literal da carta sem interpretação.
+        - Mantenha o foco na pergunta do consulente e no contexto fornecido.
+        - Use uma linguagem clara e acessível, evitando jargões esotéricos.
+        - Forneça insights práticos que o consulente possa aplicar em sua vida.
     `; 
 
     return completeQuestion;

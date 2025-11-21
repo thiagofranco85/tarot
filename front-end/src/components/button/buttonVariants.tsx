@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 
 const classNames = `px-5 py-1.5 mt-4 rounded-full text-white
+
                 hover:cursor-pointer
                 group-hover:text-hover-primary 
                 transition-transform duration-200

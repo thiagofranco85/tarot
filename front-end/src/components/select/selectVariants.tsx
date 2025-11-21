@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const selectVariants = cva(
-  "w-full bg-background-1/70 rounded-2xl text-white text-base/6 my-2 focus:outline-none",
+  "w-full bg-background-1/70 border-1 border-blueviolet rounded-2xl text-white text-base/6 my-2 focus:outline-none",
   {
     variants: {
       size: {

@@ -1,4 +1,5 @@
 import type { DeckType } from "../../types/DeckType";
+import { API_URL } from './../../config/consts';
 
 
 interface PlayLenormandProps {
@@ -8,8 +9,6 @@ interface PlayLenormandProps {
 }
 
 type PlayTarotProps = PlayLenormandProps;
-
-const API_URL = import.meta.env.VITE_API_URL;
 
 
 export async function getFormatedSubjects() {
