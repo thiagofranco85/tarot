@@ -67,7 +67,7 @@ export class Play<T extends ICard> {
     this._subjects.push(subject);
     this._cards.push(card);
   }
-
+   
   public buildCompleteQuestion(): string {
     this.verifyNumberOfSubjectsAndCards();
     
@@ -116,5 +116,7 @@ export class Play<T extends ICard> {
     `; 
 
     return completeQuestion;
-  }
+  }   
+
+  
 }
