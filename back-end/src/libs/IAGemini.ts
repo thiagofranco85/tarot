@@ -6,7 +6,8 @@ export class IAGemini {
   private _answer: string = "";
   private _contentType: string = "application/json";
   private _AI_GEMINI_API_KEY: string = env.AI_GEMINI_API_KEY!;
-  private _uri: string = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${this._AI_GEMINI_API_KEY}`;
+  private _primaryUri: string = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${this._AI_GEMINI_API_KEY}`;
+  private _fallbackUri: string = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${this._AI_GEMINI_API_KEY}`;
 
   constructor(question: string) {
     this._question = question;
@@ -28,22 +29,29 @@ export class IAGemini {
         },
       ],
       generationConfig: {
-        "temperature": 1.2,  // Gemini 2.5 e 3 aguentam temperatura mais alta sem alucinar
+        "temperature": 1.2,
         "topK": 64,
         "topP": 0.95
       }
     };
-    const response = await axios.post(this._uri, 
-      questionJson, 
-      {
-        headers: { "Content-Type": this._contentType },
-      });
 
-    
+    const uris = [this._primaryUri, this._fallbackUri];
 
-    this._answer = response.data.candidates[0].content.parts[0].text;
+    for (const uri of uris) {
+      try {
+        const response = await axios.post(uri, questionJson, {
+          headers: { "Content-Type": this._contentType },
+        });
+        this._answer = response.data.candidates[0].content.parts[0].text;
+        return this._answer;
+      } catch (error: unknown) {
+        const isRateLimit = axios.isAxiosError(error) && error.response?.status === 429;
+        if (isRateLimit && uri === this._primaryUri) continue;
+        throw error;
+      }
+    }
 
-    return this._answer;
+    throw new Error("All Gemini models unavailable");
   }
 }
  

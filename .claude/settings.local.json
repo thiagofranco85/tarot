@@ -6,7 +6,9 @@
       "Bash(Remove-Item -Recurse -Force \"c:\\\\Users\\\\MEMV-Thiago\\\\Documents\\\\Pessoal\\\\node\\\\tarot\\\\front-end\\\\src\\\\test\" -ErrorAction SilentlyContinue)",
       "Bash(Remove-Item -Force \"c:\\\\Users\\\\MEMV-Thiago\\\\Documents\\\\Pessoal\\\\node\\\\tarot\\\\front-end\\\\generate-tests.mjs\" -ErrorAction SilentlyContinue)",
       "Bash(Remove-Item -Force \"c:\\\\Users\\\\MEMV-Thiago\\\\Documents\\\\Pessoal\\\\node\\\\tarot\\\\front-end\\\\vitest.config.ts\" -ErrorAction SilentlyContinue)",
-      "Bash(Write-Output \"Concluído\")"
+      "Bash(Write-Output \"Concluído\")",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\MEMV-Thiago\\\\Documents\\\\Pessoal\\\\node\\\\tarot\" -Directory)",
+      "Bash(npm install *)"
     ]
   }
 }

@@ -13,7 +13,7 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
     env_file:
-      - ./back-end/.env
+      - ./back-end/.env.development
     volumes:
       - ./back-end:/app
       - /app/node_modules
