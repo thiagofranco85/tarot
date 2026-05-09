@@ -7,6 +7,10 @@ import z from "zod";
 
 export async function routes(app: FastifyInstance) {
 
+  app.get("/health", async (_, reply) => {
+    reply.status(200).send({ status: "ok" });
+  })
+
   app.get("/formated-subjects", async (_, reply) => {
     const list = getFormatedSubjects();
     reply.status(200).send({ data: list });

@@ -9,7 +9,7 @@ import { routes } from './routes/index';
 const server = fastify({ logger: true });
 
 
-server.register(fastifyCors, { origin: '*' })
+server.register(fastifyCors, { origin: process.env.ALLOWED_ORIGIN || '*' })
 
 server.setValidatorCompiler(validatorCompiler)
 server.setSerializerCompiler(serializerCompiler)
@@ -29,10 +29,18 @@ server.register(fastifySwaggerUi, {
 })
 
  
-server.listen({ port: 3000, host: '0.0.0.0' }).then(() => {
-  console.log('Server is running on port 3000')
-})
- 
 server.register(routes, { prefix: "/api" });
+
+server.listen({ port: 3000, host: '0.0.0.0' }).then(() => {
+  console.log(`Server is running on port 3000`)
+})
+
+const shutdown = async () => {
+  await server.close();
+  process.exit(0);
+};
+
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
 
 
