@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - ALLOWED_ORIGIN=${ALLOWED_ORIGIN}
+    env_file:
+      - ./back-end/.env.production
+    networks:
+      - tarot-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL}
+    ports:
+      - "80:80"
+    networks:
+      - tarot-network
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+networks:
+  tarot-network:
+    driver: bridge
